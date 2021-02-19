@@ -1,0 +1,17 @@
+freebsd_task:
+        install_script:
+                - pkg install -y pkgconf cmake ninja libftdi1 popt
+        script:
+                - mkdir build
+                - cd build
+                - cmake -GNinja ..
+                - ninja
+        test_script:
+                - build/src/sd-mux-ctrl --help
+        matrix:
+                - name: freebsd12-amd64
+                  freebsd_instance:
+                     image: freebsd-12-2-release-amd64
+                - name: freebsd13-amd64
+                  freebsd_instance:
+                     image_family: freebsd-13-0-snap
